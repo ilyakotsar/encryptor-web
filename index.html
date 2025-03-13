@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Encryptor Web</title>
+  <link rel="stylesheet" href="css/output-2cbc91d25e.min.css">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  >
+  <script
+    src="https://unpkg.com/crypto-js@4.2.0/crypto-js.js"
+    integrity="sha384-57VRFGvLpSky5EqUImBJSOkJI+6xYMONZqn8Zh70E+1DyMPpN1vQkaJaN4YqRmln"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script
+    src="https://unpkg.com/big-integer@1.6.52/BigInteger.js"
+    integrity="sha384-HjZi0miB0R2z8uR7AY6ffOFVcvSyh+c3jfGgCLS/DQqGmCmxzlr2esIw/87B5OxR"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script defer src="main-f25435909a.js"></script>
+</head>
+<body class="text-zinc-200 bg-zinc-950">
+  <div class="max-w-3xl mx-auto px-3 pb-10 md:border-l md:border-r border-zinc-900 min-h-screen">
+    <div class="flex justify-between items-center gap-2 mt-0.5">
+      <div class="w-[18px]"></div>
+      <div class="text-lg font-bold uppercase">Encryptor</div>
+      <div>
+        <a
+          href="https://github.com/ilyakotsar/encryptor-web"
+          class="text-zinc-700 hover:text-inherit active:text-inherit"
+          target="_blank"
+          title="GitHub"
+        >
+          <i class="bi bi-github"></i>
+        </a>
+      </div>
+    </div>
+    <div id="source" class="text-center text-sm text-zinc-500 mb-0.5"></div>
+    <div class="grid sm:grid-cols-2 gap-2 mb-8 pt-2 border-t border-zinc-900">
+      <div class="grid grid-cols-2 gap-2">
+        <button id="create-btn" class="tab-btn">Create</button>
+        <button id="confirm-btn" class="tab-btn">Confirm</button>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <button id="chat-btn" class="tab-btn">Chat</button>
+        <button id="symmetric-btn" class="tab-btn">Symmetric</button>
+      </div>
+    </div>
+    <div id="create-tab" class="hidden">
+      <div class="grid sm:grid-cols-2 gap-2 mb-4">
+        <a
+          href="https://github.com/ilyakotsar/dh-generator"
+          class="btn-2 flex items-center justify-center gap-1.5 text-center group"
+          target="_blank"
+        >
+          Generate parameters
+          <span class="text-sm text-zinc-500 group-hover:text-inherit">
+            <i class="bi bi-box-arrow-up-right"></i>
+          </span>
+        </a>
+        <button id="select-parameters" class="btn-2">Select parameters from JSON</button>
+      </div>
+      <div class="mb-4">
+        <label for="parameters">Parameters</label>
+        <textarea
+          id="parameters"
+          rows="4"
+          class="input break-all"
+          autocomplete="off"
+        ></textarea>
+      </div>
+      <div class="mb-4">
+        <label for="password-create">Password</label>
+        <div class="relative">
+          <input type="password" id="password-create" class="input">
+          <button class="toggle-password-btn" toggle-password="password-create">
+            <i class="bi bi-eye-slash"></i>
+          </button>
+        </div>
+      </div>
+      <div class="mb-6">
+        <label for="iterations-create">Iterations: <span>550000</span></label>
+        <input
+          type="range"
+          id="iterations-create"
+          min="100000"
+          max="1000000"
+          value="550000"
+          step="5000"
+          autocomplete="off"
+        >
+      </div>
+      <div class="flex justify-center">
+        <button id="create-config-a" class="btn-1">
+          Create and copy configuration A
+        </button>
+      </div>
+      <div id="copied-a" class="mt-4 break-all hidden"></div>
+    </div>
+    <div id="confirm-tab" class="hidden">
+      <div class="mb-4">
+        <label for="config-a">Configuration A</label>
+        <textarea
+          id="config-a"
+          rows="4"
+          class="input break-all"
+          autocomplete="off"
+          spellcheck="false"
+        ></textarea>
+      </div>
+      <div class="mb-4">
+        <label for="password-confirm">Password</label>
+        <div class="relative">
+          <input type="password" id="password-confirm" class="input">
+          <button class="toggle-password-btn" toggle-password="password-confirm">
+            <i class="bi bi-eye-slash"></i>
+          </button>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <button id="create-config-b" class="btn-1">
+          Create and copy configuration B
+        </button>
+      </div>
+      <div id="copied-b" class="mt-4 break-all hidden"></div>
+    </div>
+    <div id="chat-tab" class="hidden">
+      <div class="mb-4">
+        <label for="config">Interlocutor configuration</label>
+        <textarea
+          id="config"
+          rows="4"
+          class="input break-all"
+          autocomplete="off"
+          spellcheck="false"
+        ></textarea>
+      </div>
+      <div class="mb-4">
+        <label for="password-chat">Password</label>
+        <div class="relative">
+          <input type="password" id="password-chat" class="input">
+          <button class="toggle-password-btn" toggle-password="password-chat">
+            <i class="bi bi-eye-slash"></i>
+          </button>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <button
+          id="get-encryption-key"
+          class="btn-1 flex items-center justify-center gap-1.5"
+        >
+          Get encryption key<span class="loader hidden"></span>
+        </button>
+      </div>
+      <div id="chat-body" class="mt-4 hidden">
+        <div class="grid sm:grid-cols-2 gap-2">
+          <div class="mb-4">
+            <div class="flex justify-between items-end">
+              <label for="message-chat">Message</label>
+              <button class="btn-3 mb-0.5" clear-input="message-chat">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+            <textarea
+              id="message-chat"
+              rows="8"
+              class="input"
+              autocomplete="off"
+            ></textarea>
+            <button id="encrypt-message" class="btn-1 w-full mt-2">
+              Encrypt and copy
+            </button>
+          </div>
+          <div class="mb-4">
+            <div class="flex justify-between items-end">
+              <label for="encrypted-message-chat">Encrypted message</label>
+              <button class="btn-3 mb-0.5" clear-input="encrypted-message-chat">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+            <textarea
+              id="encrypted-message-chat"
+              rows="8"
+              class="input break-all"
+              autocomplete="off"
+              spellcheck="false"
+            ></textarea>
+            <button id="decrypt-message" class="btn-1 w-full mt-2">
+              Decrypt
+            </button>
+          </div>
+        </div>
+        <div id="messages" class="mt-4"></div>
+      </div>
+    </div>
+    <div id="symmetric-tab" class="hidden">
+      <div class="mb-4">
+        <label for="password-symmetric">Password</label>
+        <div class="relative">
+          <input type="password" id="password-symmetric" class="input">
+          <button class="toggle-password-btn" toggle-password="password-symmetric">
+            <i class="bi bi-eye-slash"></i>
+          </button>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="iterations-symmetric">Iterations: <span>550000</span></label>
+        <input
+          type="range"
+          id="iterations-symmetric"
+          min="100000"
+          max="1000000"
+          value="550000"
+          step="5000"
+          autocomplete="off"
+        >
+      </div>
+      <div class="grid sm:grid-cols-2 gap-2">
+        <div class="mb-4">
+          <div class="flex justify-between items-end">
+            <label for="message-symmetric">Message</label>
+            <button class="btn-3 mb-0.5" clear-input="message-symmetric">
+              <i class='bi bi-x'></i>
+            </button>
+          </div>
+          <textarea
+            id="message-symmetric"
+            rows="8"
+            class="input"
+            autocomplete="off"
+          ></textarea>
+          <button
+            id="encrypt-symmetric"
+            class="btn-1 flex items-center justify-center gap-1.5 w-full mt-2"
+          >
+            Encrypt<span class="loader hidden"></span>
+          </button>
+        </div>
+        <div class="mb-4">
+          <div class="flex justify-between items-end">
+            <label for="encrypted-message-symmetric">Encrypted message</label>
+            <button class="btn-3 mb-0.5" clear-input="encrypted-message-symmetric">
+              <i class='bi bi-x'></i>
+            </button>
+          </div>
+          <textarea
+            id="encrypted-message-symmetric"
+            rows="8"
+            class="input break-all"
+            autocomplete="off"
+            spellcheck="false"
+          ></textarea>
+          <button
+            id="decrypt-symmetric"
+            class="btn-1 flex items-center justify-center gap-1.5 w-full mt-2"
+          >
+            Decrypt<span class="loader hidden"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

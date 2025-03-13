@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+html {
+    color-scheme: dark;
+}
+.btn-1 {
+    color: var(--color-zinc-50);
+    padding-block: calc(var(--spacing) * 1.5);
+    padding-inline: calc(var(--spacing) * 3);
+    border-radius: var(--radius-sm);
+    font-weight: var(--font-weight-semibold);
+    background-color: var(--color-gray-700);
+    @media (width >= 40rem) {
+        padding-inline: calc(var(--spacing) * 7);
+    }
+}
+.btn-1:hover, .btn-1:active {
+    color: #fff;
+    background-color: var(--color-indigo-600);
+}
+.btn-2 {
+    padding-block: calc(var(--spacing) * 1.5);
+    padding-inline: calc(var(--spacing) * 3);
+    border-radius: var(--radius-sm);
+    font-weight: var(--font-weight-semibold);
+    background-color: var(--color-zinc-800);
+}
+.btn-2:hover, .btn-2:active {
+    background-color: var(--color-zinc-700);
+}
+.btn-3 {
+    color: var(--color-zinc-500);
+    padding: calc(var(--spacing) * 1);
+    border-radius: var(--radius-sm);
+}
+.btn-3:hover, .btn-3:active,
+.toggle-password-btn:hover, .toggle-password-btn:active {
+    color: inherit;
+    background-color: var(--color-zinc-800);
+}
+.toggle-password-btn {
+    color: var(--color-zinc-500);
+    padding: calc(var(--spacing) * 2);
+    border-radius: var(--radius-xs);
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+}
+.tab-btn {
+    padding-block: calc(var(--spacing) * 0.5);
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 2px;
+    border-color: var(--color-zinc-900);
+}
+.tab-btn:hover, .tab-btn:active {
+    border-color: var(--color-zinc-700);
+}
+.tab-btn:disabled {
+    border-color: var(--color-indigo-600);
+    font-weight: var(--font-weight-semibold);
+}
+button {
+    cursor: pointer;
+}
+button:disabled {
+    cursor: default;
+}
+label {
+    display: block;
+    width: fit-content;
+    padding-bottom: calc(var(--spacing) * 0.5);
+}
+i.bi {
+    display: flex;
+}
+.input {
+    background-color: inherit;
+    padding-block: calc(var(--spacing) * 1.5);
+    padding-inline: calc(var(--spacing) * 2.5);
+    width: 100%;
+    border-radius: 0.25rem;
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    border-color: var(--color-zinc-800);
+    outline-style: solid;
+    outline-width: 1px;
+    outline-color: transparent;
+}
+.input[type=password] {
+    padding-right: calc(var(--spacing) * 9);
+}
+.input:hover {
+    border-color: var(--color-zinc-600);
+}
+.input:focus {
+    border-color: var(--color-indigo-600);
+    outline-color: var(--color-indigo-600);
+}
+input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    background-color: var(--color-zinc-900);
+    border: 1px solid transparent;
+    width: 100%;
+    cursor: pointer;
+}
+input[type=range]:hover, input[type=range]:active {
+    border-color: var(--color-zinc-800);
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: var(--color-gray-700);
+    outline: 1px solid var(--color-gray-700);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    border: none;
+}
+input[type=range]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: var(--color-gray-700);
+    outline: 1px solid var(--color-gray-700);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    border: none;
+}
+input[type=range]::-webkit-slider-thumb:hover,
+input[type=range]::-webkit-slider-thumb:active {
+    background-color: var(--color-indigo-600);
+    outline-color: var(--color-indigo-600);
+}
+input[type=range]::-moz-range-thumb:hover,
+input[type=range]::-moz-range-thumb:active {
+    background-color: var(--color-indigo-600);
+    outline-color: var(--color-indigo-600);
+}
+.loader {
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.loader.hidden {
+    display: none !important;
+}
