@@ -56,6 +56,7 @@ html {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 2px;
     border-color: var(--color-zinc-900);
+    text-align: center;
 }
 .tab-btn:hover, .tab-btn:active {
     border-color: var(--color-zinc-700);
@@ -112,7 +113,7 @@ input[type=range] {
     cursor: pointer;
 }
 input[type=range]:hover, input[type=range]:active {
-    border-color: var(--color-zinc-800);
+    border-color: var(--color-zinc-700);
 }
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;

@@ -7,7 +7,11 @@ if (tab) {
     URLParams.set('tab', 'create');
     window.location.search = URLParams;
 }
-document.getElementById('source').innerText = window.location.href.split('?')[0];
+let source = window.location.href.split('?')[0];
+if (source[source.length - 1] === '/') {
+    source = source.slice(0, -1);
+}
+document.getElementById('source').innerText = source;
 let encryptionKey;
 
 /**
@@ -288,9 +292,7 @@ document.querySelectorAll('[clear-input]').forEach(btn => {
 });
 
 document.getElementById('select-parameters').addEventListener('click', function() {
-    let url = 'https://raw.githubusercontent.com/ilyakotsar';
-    url += '/dh-parameters/refs/heads/main/parameters_2048.json';
-    fetch(url)
+    fetch('parameters_2048.json')
         .then(response => response.json())
         .then(data => {
             let randomIndex = Math.floor(Math.random() * data['parameters'].length);
